@@ -9,7 +9,7 @@ namespace HelloBot.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
-        const string ImageHost = "https://raw.githubusercontent.com/nguyen190887/HelloBot/master/HelloBot/Images/";
+        const string ImageHost = "https://raw.githubusercontent.com/nguyen190887/HelloBot/master/HelloBot/Images";
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -40,25 +40,25 @@ namespace HelloBot.Dialogs
                     "Messi",
                     "Messi",
                     "I love this guy the most!",
-                    new CardImage(url: $"{imageHost}/messi.jpg"),
+                    new CardImage(url: $"{imageHost}/Messi.jpg"),
                     new CardAction(ActionTypes.OpenUrl, "See more", value: "https://www.google.com/search?q=messi")),
                 GetThumbnailCard(
                     "Ronaldo",
                     "Ronaldo",
                     "Personally, I hate him!",
-                    new CardImage(url: $"{imageHost}/ronaldo.jpg"),
+                    new CardImage(url: $"{imageHost}/Ronaldo.jpg"),
                     new CardAction(ActionTypes.OpenUrl, "See what he did", value: "https://www.google.com/search?q=ronaldo")),
                 GetHeroCard(
                     "Mbappe",
                     "Mbappe",
                     "Hmmm, new M10 here!",
-                    new CardImage(url: $"{imageHost}/mbappe.jpg"),
+                    new CardImage(url: $"{imageHost}/Mbappe.jpg"),
                     new CardAction(ActionTypes.OpenUrl, "See him", value: "https://www.google.com/search?q=mbappe")),
                 GetThumbnailCard(
                     "Neymar",
                     "Neymar",
                     "He is an actor!",
-                    new CardImage(url: $"{imageHost}/neymar.jpg"),
+                    new CardImage(url: $"{imageHost}/Neymar.jpg"),
                     new CardAction(ActionTypes.OpenUrl, "See his performance", value: "https://www.google.com/search?q=neymar+acting")),
             };
         }
