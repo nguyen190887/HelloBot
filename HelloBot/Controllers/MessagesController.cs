@@ -2,7 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using HelloBot.Dialogs;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 using Microsoft.Bot.Connector;
 
 namespace HelloBot
@@ -10,6 +12,11 @@ namespace HelloBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        internal static IDialog<CodeBuilder> MakeCodeBuidlerDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(CodeBuilder.BuildForm));
+        }
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -18,7 +25,8 @@ namespace HelloBot
         {
             if (activity.GetActivityType() == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+                //await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+                await Conversation.SendAsync(activity, MakeCodeBuidlerDialog);
             }
             else
             {
