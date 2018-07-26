@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using HelloBot.Dialogs;
@@ -14,7 +15,39 @@ namespace HelloBot
     {
         internal static IDialog<CodeBuilder> MakeCodeBuidlerDialog()
         {
-            return Chain.From(() => FormDialog.FromForm(CodeBuilder.BuildForm));
+            return Chain.From(() => FormDialog.FromForm(CodeBuilder.BuildForm))
+                .Do(async (context, order) =>
+                {
+                    try
+                    {
+                        var completed = await order;
+
+                        await context.PostAsync(
+                            $"Okay, thanks for the choice! I'm building '{completed.Branch}' to server '{completed.Server}' ...");
+
+                        if (completed.NotifySlack == NotifySlack.Yes)
+                        {
+                            Thread.Sleep(1000);
+                            await context.PostAsync("  and be patient, will NOTIFY you via Slack ...");
+
+                            Thread.Sleep(2000);
+                            await context.PostAsync("... hmmm, but I'm not sure how long it would take :(");
+                        }
+                    }
+                    catch (FormCanceledException<CodeBuilder> e)
+                    {
+                        string reply;
+                        if (e.InnerException == null)
+                        {
+                            reply = $"You quit on {e.Last} -- maybe you can finish next time!";
+                        }
+                        else
+                        {
+                            reply = "Sorry, there are some problems in my room. Please try again.";
+                        }
+                        await context.PostAsync(reply);
+                    }
+                });
         }
 
         /// <summary>
