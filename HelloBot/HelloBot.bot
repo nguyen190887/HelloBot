@@ -1,14 +1,23 @@
 {
-  "name": "HelloBot",
-  "secretKey": "",
-  "services": [
-    {
-      "appId": "",
-      "id": "http://localhost:3978/api/messages",
-      "type": "endpoint",
-      "appPassword": "",
-      "endpoint": "http://localhost:3978/api/messages",
-      "name": "HelloBot"
-    }
-  ]
+    "name": "HelloBot",
+    "description": "",
+    "secretKey": "",
+    "services": [
+        {
+            "appId": "",
+            "id": "http://localhost:3978/api/messages",
+            "type": "endpoint",
+            "appPassword": "",
+            "endpoint": "http://localhost:3978/api/messages",
+            "name": "HelloBot"
+        },
+        {
+            "appId": "",
+            "id": "a2ee5c00-90c4-11e8-8104-15abee2c15fd",
+            "type": "endpoint",
+            "appPassword": "",
+            "endpoint": "https://hellobot123.azurewebsites.net/api/messages",
+            "name": "HelloBot Azure"
+        }
+    ]
 }
