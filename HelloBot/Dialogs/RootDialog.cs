@@ -9,78 +9,57 @@ namespace HelloBot.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
+        const string ImageHost = "https://raw.githubusercontent.com/nguyen190887/HelloBot/master/HelloBot/Images/";
+
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
-
-            //return Task.CompletedTask;
         }
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Activity;
 
-            //// Calculate something for us to return
-            //int length = (activity.Text ?? string.Empty).Length;
-
-            //// Return our reply to the user
-            //await context.PostAsync($"You sent {activity.Text} which was {length} characters");
-
-            // Uncomment for Prompt
-            //PromptDialog.Choice(
-            //    context,
-            //    AfterChoiceSelected,
-            //    new[] { "Messi", "Ronaldo" },
-            //    "Who is better player?",
-            //    "I am sorry but I did not understand that"
-            //    );
-
             var reply = context.MakeMessage();
 
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-            reply.Attachments = GetCardsAttachments();
+            reply.Attachments = GetCardsAttachments(ImageHost);
 
             await context.PostAsync(reply);
 
             context.Wait(MessageReceivedAsync);
         }
 
-        private async Task AfterChoiceSelected(IDialogContext context, IAwaitable<string> result)
-        {
-            await context.PostAsync("Thanks for choosing: "+(await result));
-            await StartAsync(context);
-        }
-
         #region Message attachments
 
-        private static IList<Attachment> GetCardsAttachments()
+        private static IList<Attachment> GetCardsAttachments(string imageHost)
         {
             return new List<Attachment>()
             {
                 GetHeroCard(
-                    "Azure Storage",
-                    "Offload the heavy lifting of data center management",
-                    "Store and help protect your data. Get durable, highly available data storage across the globe and pay only for what you use.",
-                    new CardImage(url: "https://docs.microsoft.com/en-us/aspnet/aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/data-storage-options/_static/image5.png"),
-                    new CardAction(ActionTypes.OpenUrl, "Learn more", value: "https://azure.microsoft.com/en-us/services/storage/")),
+                    "Messi",
+                    "Messi",
+                    "I love this guy the most!",
+                    new CardImage(url: $"{imageHost}/messi.jpg"),
+                    new CardAction(ActionTypes.OpenUrl, "See more", value: "https://www.google.com/search?q=messi")),
                 GetThumbnailCard(
-                    "DocumentDB",
-                    "Blazing fast, planet-scale NoSQL",
-                    "NoSQL service for highly available, globally distributed apps—take full advantage of SQL and JavaScript over document and key-value data without the hassles of on-premises or virtual machine-based cloud database options.",
-                    new CardImage(url: "https://docs.microsoft.com/en-us/azure/documentdb/media/documentdb-introduction/json-database-resources1.png"),
-                    new CardAction(ActionTypes.OpenUrl, "Learn more", value: "https://azure.microsoft.com/en-us/services/documentdb/")),
+                    "Ronaldo",
+                    "Ronaldo",
+                    "Personally, I hate him!",
+                    new CardImage(url: $"{imageHost}/ronaldo.jpg"),
+                    new CardAction(ActionTypes.OpenUrl, "See what he did", value: "https://www.google.com/search?q=ronaldo")),
                 GetHeroCard(
-                    "Azure Functions",
-                    "Process events with a serverless code architecture",
-                    "An event-based serverless compute experience to accelerate your development. It can scale based on demand and you pay only for the resources you consume.",
-                    new CardImage(url: "https://msdnshared.blob.core.windows.net/media/2016/09/fsharp-functions2.png"),
-                    new CardAction(ActionTypes.OpenUrl, "Learn more", value: "https://azure.microsoft.com/en-us/services/functions/")),
+                    "Mbappe",
+                    "Mbappe",
+                    "Hmmm, new M10 here!",
+                    new CardImage(url: $"{imageHost}/mbappe.jpg"),
+                    new CardAction(ActionTypes.OpenUrl, "See him", value: "https://www.google.com/search?q=mbappe")),
                 GetThumbnailCard(
-                    "Cognitive Services",
-                    "Build powerful intelligence into your applications to enable natural and contextual interactions",
-                    "Enable natural and contextual interaction with tools that augment users' experiences using the power of machine-based intelligence. Tap into an ever-growing collection of powerful artificial intelligence algorithms for vision, speech, language, and knowledge.",
-                    new CardImage(url: "https://msdnshared.blob.core.windows.net/media/2017/03/Azure-Cognitive-Services-e1489079006258.png"),
-                    new CardAction(ActionTypes.OpenUrl, "Learn more", value: "https://azure.microsoft.com/en-us/services/cognitive-services/")),
+                    "Neymar",
+                    "Neymar",
+                    "He is an actor!",
+                    new CardImage(url: $"{imageHost}/neymar.jpg"),
+                    new CardAction(ActionTypes.OpenUrl, "See his performance", value: "https://www.google.com/search?q=neymar+acting")),
             };
         }
 

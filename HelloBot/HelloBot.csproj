@@ -144,6 +144,10 @@
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
     <Content Include="HelloBot.bot" />
+    <Content Include="Images\Mbappe.jpg" />
+    <Content Include="Images\Messi.jpg" />
+    <Content Include="Images\Neymar.jpg" />
+    <Content Include="Images\Ronaldo.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
